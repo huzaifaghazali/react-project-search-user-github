@@ -32,8 +32,7 @@ export default {
   public_repos: 19,
   public_gists: 0,
   followers: 0,
-  following: 0,
+  following: 4,
   created_at: '2020-04-09T15:02:52Z',
   updated_at: '2023-02-13T13:18:28Z',
 };
-
