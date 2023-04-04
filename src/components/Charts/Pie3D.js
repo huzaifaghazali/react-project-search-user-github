@@ -38,7 +38,7 @@ const chartComponent = ({data}) => {
         pieRadius: '45%'
       },
       // Chart Data
-      data
+      data,
     }
   };
 
