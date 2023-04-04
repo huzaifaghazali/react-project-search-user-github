@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
 const Card = () => {
-  return <h2>card component</h2>;
+  const { githubUser } = useContext(GithubContext);
+  const {
+    avatar_url,
+    html_url,
+    name,
+    company,
+    blog,
+    bio,
+    location,
+    twitter_username,
+  } = githubUser
+  return (
+  <Wrapper>
+    <header>
+      <img src={avatar_url} alt={name} />
+      <div>
+        <h4>{name}</h4>
+        <p>@{twitter_username || 'huzaifa_ghazali'}</p>
+      </div>
+      <a href={html_url}>follow</a>
+    </header>
+    <p className="bio">{bio || 'Software developer'}</p>
+    <div className="links">
+      <p> <MdBusiness></MdBusiness> {company || 'Company Name'} </p>
+      <p> <MdLocationOn></MdLocationOn> {location || 'earth'} </p>
+      <a href={`https://${blog}`}> <MdLink></MdLink> {blog || 'personal site'} </a>
+    </div>
+  </Wrapper>
+  )
 };
 const Wrapper = styled.article`
   background: var(--clr-white);
@@ -82,7 +110,8 @@ const Wrapper = styled.article`
       &:hover {
         color: var(--clr-primary-3);
       }
-    }
+    } 
+   
   }
 `;
 export default Card;
