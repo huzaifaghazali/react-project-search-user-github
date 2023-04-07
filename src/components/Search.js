@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { GithubContext } from '../context/context';
 const Search = () => {
   const [user, setUser] = useState('');
+  const {requests} = useContext(GithubContext);
+  console.log(requests);
+
   // get things from global context
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,10 +29,10 @@ const Search = () => {
               value={user}
               onChange={(e) => setUser(e.target.value)}
             />
-            <button type='submit'>Search</button>
+            {requests && <button type='submit'>Search</button>}
           </div>
         </form>
-        <h3>Requests: 60 / 60</h3>
+        <h3>Requests: {requests} / 60</h3>
       </Wrapper>
     </section>
   );
