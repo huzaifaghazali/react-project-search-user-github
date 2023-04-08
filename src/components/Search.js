@@ -4,14 +4,14 @@ import { MdSearch } from 'react-icons/md';
 import { GithubContext } from '../context/context';
 const Search = () => {
   const [user, setUser] = useState('');
-  const { requests, error, searchGithubUser } = useContext(GithubContext);
+  const { requests, error, searchGithubUser, isLoading } =
+    useContext(GithubContext);
 
   // get things from global context
   const handleSubmit = (event) => {
     event.preventDefault();
     if (user) {
       searchGithubUser(user);
-  
     }
 
     setUser('');
@@ -22,7 +22,7 @@ const Search = () => {
       <Wrapper className='section-center'>
         {error.show && (
           <ErrorWrapper>
-              <p>{error.msg}</p>
+            <p>{error.msg}</p>
           </ErrorWrapper>
         )}
         <form onSubmit={handleSubmit}>
@@ -36,7 +36,7 @@ const Search = () => {
               value={user}
               onChange={(e) => setUser(e.target.value)}
             />
-            {requests && <button type='submit'>Search</button>}
+            {requests && !isLoading && <button type='submit'>Search</button>}
           </div>
         </form>
         <h3>Requests: {requests} / 60</h3>

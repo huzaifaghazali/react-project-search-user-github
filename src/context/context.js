@@ -17,7 +17,7 @@ const GithubProvider = (props) => {
 
   // request loading
   const [requests, setRequests] = useState(0);
-  const [loading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ show: false, msg: '' });
 
   // check rate
@@ -40,7 +40,7 @@ const GithubProvider = (props) => {
   const searchGithubUser = async (user) => {
     toggleError();
 
-    // setLoading(true);
+    setIsLoading(true);
 
     const response = await axios(`${rootUrl}/users/${user}`).catch((error) => {
       console.log(error);
@@ -53,6 +53,9 @@ const GithubProvider = (props) => {
     } else {
       toggleError(true, 'there is no user with that username');
     }
+
+    checkRequests();
+    setIsLoading(false)
   };
 
   // error
@@ -70,6 +73,7 @@ const GithubProvider = (props) => {
         requests,
         error,
         searchGithubUser,
+        isLoading,
       }}
     >
       {props.children}
