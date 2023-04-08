@@ -27,7 +27,6 @@ const GithubProvider = (props) => {
         let {
           rate: { remaining },
         } = data;
-        console.log(data);
         setRequests(remaining);
 
         if (remaining === 0) {
@@ -35,6 +34,25 @@ const GithubProvider = (props) => {
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  // Search Github user
+  const searchGithubUser = async (user) => {
+    toggleError();
+
+    // setLoading(true);
+
+    const response = await axios(`${rootUrl}/users/${user}`).catch((error) => {
+      console.log(error);
+    });
+
+    console.log(response);
+
+    if (response) {
+      setGithubUser(response.data);
+    } else {
+      toggleError(true, 'there is no user with that username');
+    }
   };
 
   // error
@@ -45,7 +63,14 @@ const GithubProvider = (props) => {
   useEffect(checkRequests, []);
   return (
     <GithubContext.Provider
-      value={{ githubUser, repos, followers, requests, error }}
+      value={{
+        githubUser,
+        repos,
+        followers,
+        requests,
+        error,
+        searchGithubUser,
+      }}
     >
       {props.children}
     </GithubContext.Provider>
